@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -17,6 +18,9 @@ import java.util.Optional;
 
 public final class DateUtils {
     public static final ZoneId PST = ZoneId.of("America/Los_Angeles");
+    private static final DateTimeFormatter BRICKLINK_TIMESTAMP_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+                    .withZone(ZoneOffset.UTC);
 
     public static Date toDate(LocalDateTime localDateTime) {
         return Optional.ofNullable(localDateTime)
@@ -40,7 +44,7 @@ public final class DateUtils {
     public static class ZonedDateTimeSerializer extends JsonSerializer<ZonedDateTime> {
         @Override
         public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-            jsonGenerator.writeObject(DateTimeFormatter.ISO_INSTANT.format(zonedDateTime));
+            jsonGenerator.writeString(BRICKLINK_TIMESTAMP_FORMATTER.format(zonedDateTime));
         }
     }
 
