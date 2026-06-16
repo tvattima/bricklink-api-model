@@ -20,7 +20,7 @@ public class Shipping {
     private String tracking_link;       //	String	URL for tracking the shipping	API-only field. It is not shown on the BrickLink pages.
     @JsonDeserialize(using = DateUtils.ZonedDateTimeDeserializer.class)
     @JsonSerialize(using = DateUtils.ZonedDateTimeSerializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.sssZ", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX", timezone = "UTC")
     private ZonedDateTime date_shipped; //	Timestamp	Shipping date	API-only field. It is not shown on the BrickLink pages.
     private Address address;            //	Object	The object representation of the shipping address	API - Name data normalization
 
